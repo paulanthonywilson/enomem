@@ -12,6 +12,7 @@ defmodule NomemServer.Application do
     children = [
       {Bandit, plug: NomemServer.Router, port: @port}
     ]
+
     opts = [strategy: :one_for_one, name: NomemServer.Supervisor]
     Supervisor.start_link(children, opts)
   end
