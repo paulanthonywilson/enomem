@@ -1,21 +1,27 @@
 # NomemClient
 
-**TODO: Add description**
+Illustrates that larger replies cause hackney to return with an `:enomem` error response.
 
-## Installation
+Usage:
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `nomem_client` to your list of dependencies in `mix.exs`:
+1. `cd`` into the `nomem_server` directory
+2. `mix deps.get` (only needed once, obvs)
+3. `iex -S mix`
+4. In a another terminal `cd`` into this (`nomem_client`) directory
+5. `mix deps.get` (only needed once, obvs)
+6. `iex -S mix` - example session below
 
 ```elixir
-def deps do
-  [
-    {:nomem_client, "~> 0.1.0"}
-  ]
-end
+iex(1)> threshold # set in .iex.exs
+67110167
+iex(2)> httpoison(threshold) # 67110167 bytes is fine
+{:ok, 67110167}
+iex(3)> httpoison(threshold + 1) # 67110168 byte response is not fine
+{:error, %HTTPoison.Error{reason: :enomem, id: nil}}
+iex(4)> finch(threshold + 1) # Finch is fine with this
+{:ok, 67110168}
+iex(5)> finch(threshold * 10) # Finch is also fine with this
+{:ok, 671101670}
+iex(6)> finch(threshold * 20) # Finch is also fine with this
+{:ok, 1342203340}
 ```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/nomem_client>.
-

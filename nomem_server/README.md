@@ -1,4 +1,6 @@
 # NomemServer
 
-Serves back binaries of a particular size to investigate a problem on Linux with `enomem` errors in `hackney` when files are above a particular size (we currently think).
+Replies with text of a particular binary size to investigate a problem with `enomem` errors in `hackney` when replies are above a particular size.
+
+See [README.md](../nomem_client/README.md).
 
